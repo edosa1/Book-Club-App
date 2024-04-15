@@ -1,0 +1,59 @@
+<!-- book_details.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ book.bookTitle }}</title>
+</head>
+<style>
+    .book-details {
+        width: 100%;
+        overflow: hidden; /* Clear floats */
+    }
+    .book-image {
+        float: left;
+        margin-right: 20px; /* Adjust spacing between image and text */
+    }
+    .book-image {
+            float: left;
+            margin-right: 20px; /* Adjust spacing between image and text */
+            width: 250px; /* Adjust image width */
+            height: auto; /* Maintain aspect ratio */
+    }
+
+    .book-details-text {
+        overflow: hidden; /* Clear floats */
+    }
+    .book-info {
+            display: inline-block;
+            vertical-align: top;
+            width: calc(100% - 150px); /* Adjust width accordingly */
+        }
+        .book-info h1,
+        .book-info p {
+            margin-top: 0;
+        }
+</style>
+<body>
+    <h1>Books</h1>
+    <form method="get" action="{% url 'books' %}">
+        <input type="text" name="q" placeholder="Search by title or author" value="{{ request.GET.q }}">
+        <button type="submit">Search</button>       
+    </form>
+    <br>
+    <br>
+
+    
+
+    <div class="book-details">
+        <img src="{{ book.bookImage }}" alt="{{ book.bookTitle }}" class="book-image">
+        <div class="book-details-text">
+            <div class="book-info">
+                <h1>{{ book.bookTitle }}</h1>
+                <h2> {{ book.bookAuthors }}</h2>
+                <p>{{ book.bookDesc }}</p>
+    </div>
+    </div>
+</body>
+</html>

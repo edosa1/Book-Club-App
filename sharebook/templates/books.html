@@ -1,0 +1,29 @@
+{% load static %}
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Book List</title>
+</head>
+<body>
+    <h1>Books</h1>
+    <form method="get" action="{% url 'books' %}">
+        <input type="text" name="q" placeholder="Search by title or author" value="{{ request.GET.q }}">
+        <button type="submit">Search</button>       
+    </form>
+     
+    <div class="books">
+        {% for book in books %}
+        <div class="book">
+            <a href="{% url 'book_details' book.id %}">
+                <h2 class="title">{{ book.bookTitle }}</h2>
+                <h3 class="author">by {{ book.bookAuthors}}</h3>
+                <img src="{{ book.bookImage }}" alt="{{ book.bookTitle }}" class="book-image">
+            </a>
+        </div>
+        {% endfor %}
+    </div>
+    
+</body>
+</html>
