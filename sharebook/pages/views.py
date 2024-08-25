@@ -182,7 +182,6 @@ def logout(request):
 
 
 
-# fix later date
 
 
 def books(request):
@@ -192,9 +191,36 @@ def books(request):
         books = Book.objects.filter(bookTitle__icontains=query) | Book.objects.filter(bookAuthors__icontains=query)
     return render(request, 'books.html', {'books': books, 'query': query})
 
+
 def book_details(request, book_id):
     book = get_object_or_404(Book, id=book_id)
     return render(request, 'book_details.html', {'book': book})
 
+# just a test
 def topbar(request):
     return render(request, 'topbar.html')
+
+def chatroom(request):
+    """
+    View to display a form for entering a chat room name.
+    """
+    return render(request, 'chat/chatroom.html')
+
+def room(request, room_name):
+    """
+    View to render the chat room page.
+    """
+    return render(request, 'chat/room.html', {
+        'room_name': room_name,
+        'username': request.user.username,
+    })
+
+def room_redirect(request):
+    """
+    View to handle form submission and redirect to the chat room.
+    """
+    if request.method == "POST":
+        room_name = request.POST.get('room_name')
+        if room_name:
+            return redirect('room', room_name=room_name)
+    return redirect('chatroom')
